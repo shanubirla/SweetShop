@@ -37,6 +37,46 @@ router.get("/search", auth, async (req, res) => {
   return res.status(200).json(sweets);
 });
 
+// =========================
+// INVENTORY ROUTES (ORDER FIXED HERE)
+// =========================
+
+// PURCHASE SWEET (user)
+router.post("/:id/purchase", auth, async (req, res) => {
+  try {
+    const sweet = await Sweet.findById(req.params.id);
+    if (!sweet) return res.status(404).json({ message: "Sweet not found" });
+
+    if (sweet.quantity <= 0)
+      return res.status(400).json({ message: "Out of stock" });
+
+    sweet.quantity -= 1;
+    await sweet.save();
+    return res.status(200).json(sweet);
+  } catch (err) {
+    return res.status(500).json({ message: "Error purchasing" });
+  }
+});
+
+// RESTOCK SWEET (admin)
+router.post("/:id/restock", auth, admin, async (req, res) => {
+  try {
+    const { amount } = req.body;
+    const sweet = await Sweet.findById(req.params.id);
+    if (!sweet) return res.status(404).json({ message: "Sweet not found" });
+
+    sweet.quantity = amount;
+    await sweet.save();
+    return res.status(200).json(sweet);
+  } catch (err) {
+    return res.status(500).json({ message: "Error restocking" });
+  }
+});
+
+// =========================
+// PUT & DELETE MUST COME AFTER PURCHASE/RESTOCK
+// =========================
+
 // UPDATE SWEET (admin)
 router.put("/:id", auth, admin, async (req, res) => {
   try {
