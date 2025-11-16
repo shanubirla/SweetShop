@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { orderAPI, sweetsAPI } from '../utils/api';
-import BillGenerator from '../components/BillGenerator';
+import { useState, useEffect } from "react";
+import { orderAPI, sweetsAPI } from "../utils/api";
+import BillGenerator from "../components/BillGenerator";
 
 const Orders = ({ user }) => {
   const [orders, setOrders] = useState([]);
   const [sweets, setSweets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [selectedOrderForBill, setSelectedOrderForBill] = useState(null);
 
   useEffect(() => {
@@ -18,13 +18,15 @@ const Orders = ({ user }) => {
     try {
       setLoading(true);
       const [ordersRes, sweetsRes] = await Promise.all([
-        user?.role === 'admin' ? orderAPI.getAllOrders() : orderAPI.getOrders(),
-        sweetsAPI.getAllSweets()
+        user?.role === "admin"
+          ? orderAPI.getAllOrders()
+          : orderAPI.getOrders(),
+        sweetsAPI.getAllSweets(),
       ]);
       setOrders(ordersRes.data.orders);
       setSweets(sweetsRes.data.sweets);
     } catch (err) {
-      setError('Failed to load data');
+      setError("Failed to load data");
     } finally {
       setLoading(false);
     }
@@ -33,200 +35,411 @@ const Orders = ({ user }) => {
   const updateStatus = async (orderId, newStatus) => {
     try {
       await orderAPI.updateOrderStatus(orderId, newStatus);
-      setSuccess(`Order status updated to ${newStatus.toUpperCase()} successfully!`);
+      setSuccess(
+        `Status changed to: ${newStatus.toUpperCase()} successfully!`
+      );
       await fetchData();
-      setTimeout(() => setSuccess(''), 3000);
-    } catch (err) {
-      setError('Failed to update order status');
+      setTimeout(() => setSuccess(""), 3000);
+    } catch {
+      setError("Failed to update order status");
     }
   };
 
   const cancelOrder = async (orderId) => {
     try {
       await orderAPI.cancelOrder(orderId);
-      setSuccess('Order cancelled successfully! Stock has been restored.');
+      setSuccess("Order cancelled successfully! Stock restored.");
       await fetchData();
-      setTimeout(() => setSuccess(''), 3000);
-    } catch (err) {
-      setError('Failed to cancel order');
+      setTimeout(() => setSuccess(""), 3000);
+    } catch {
+      setError("Failed to cancel order");
     }
   };
 
   const getStatusConfig = (status) => {
-    const configs = {
-      pending: { color: '#ff9500', icon: '⏳', label: 'Order Received' },
-      confirmed: { color: '#007aff', icon: '✅', label: 'Order Confirmed' },
-      preparing: { color: '#af52de', icon: '👨🍳', label: 'In Preparation' },
-      ready: { color: '#34c759', icon: '📦', label: 'Ready for Pickup' },
-      delivered: { color: '#00d4aa', icon: '🚚', label: 'Successfully Delivered' },
-      cancelled: { color: '#ff3b30', icon: '❌', label: 'Order Cancelled' },
+    const cfg = {
+      pending: { color: "#C59B5F", icon: "⏳", label: "Pending" },
+      confirmed: { color: "#A0773C", icon: "✔", label: "Confirmed" },
+      preparing: { color: "#8F6B3A", icon: "👨🍳", label: "Preparing" },
+      ready: { color: "#B88646", icon: "📦", label: "Ready" },
+      delivered: { color: "#6B5C3B", icon: "🚚", label: "Delivered" },
+      cancelled: { color: "#B13B3B", icon: "❌", label: "Cancelled" },
     };
-    return configs[status] || { color: '#86868b', icon: '❓', label: 'Unknown Status' };
+    return cfg[status] || cfg.pending;
   };
 
-  const canCancelOrder = (order) => {
-    return ['pending', 'confirmed'].includes(order.status);
-  };
+  const canCancelOrder = (order) =>
+    ["pending", "confirmed"].includes(order.status);
 
+  /* BILL VIEW PAGE */
   if (selectedOrderForBill) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #FFF9F5 0%, #F5FFFE 100%)', paddingTop: '80px', paddingBottom: '40px' }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(135deg,#FFF9F2,#FFF4E6)",
+          paddingTop: "80px",
+          paddingBottom: "40px",
+        }}
+      >
         <div className="container">
           <button
             onClick={() => setSelectedOrderForBill(null)}
             className="btn btn-secondary"
-            style={{ marginBottom: '20px' }}
+            style={{
+              marginBottom: "20px",
+              background: "#D8CBB3",
+              color: "#3E2F1D",
+              borderRadius: "12px",
+              padding: "10px 18px",
+              fontWeight: "700",
+              border: "none",
+            }}
           >
-            Back to Orders
+            ← Back to Orders
           </button>
+
           <BillGenerator order={selectedOrderForBill} sweets={sweets} />
         </div>
       </div>
     );
   }
 
+  /* MAIN LIST PAGE */
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #FFF9F5 0%, #F5FFFE 100%)', paddingTop: '80px', paddingBottom: '40px' }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg,#FFF9F2,#FFF4E6)",
+        paddingTop: "80px",
+        paddingBottom: "40px",
+      }}
+    >
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h1 className="section-title">
-            {user?.role === 'admin' ? 'Order Management System' : 'Order History & Tracking'}
+        {/* HEADER */}
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <h1
+            style={{
+              fontSize: "42px",
+              fontWeight: "800",
+              color: "#3E2F1D",
+              letterSpacing: "-1px",
+            }}
+          >
+            ❁{" "}
+            {user?.role === "admin"
+              ? "Order Management"
+              : "Your Orders & Tracking"}
           </h1>
-          <p style={{ fontSize: '18px', color: '#2c2c2c', marginTop: '10px', fontWeight: '600' }}>
-            {user?.role === 'admin' 
-              ? 'Comprehensive order processing and fulfillment dashboard'
-              : 'Track your orders and view purchase history'
-            }
+
+          <p
+            style={{
+              fontSize: "16px",
+              color: "#5A4733",
+              fontWeight: "600",
+              marginTop: "10px",
+            }}
+          >
+            {user?.role === "admin"
+              ? "Manage, track, and update all customer orders"
+              : "View your order history and track status in real-time"}
           </p>
         </div>
 
-        {error && <div className="alert alert-error">{error}</div>}
-        {success && <div className="alert alert-success">{success}</div>}
+        {/* ALERTS */}
+        {error && (
+          <div
+            style={{
+              background: "#ffdddd",
+              padding: "12px",
+              borderRadius: "10px",
+              color: "#b13b3b",
+              marginBottom: "20px",
+              fontWeight: "700",
+            }}
+          >
+            {error}
+          </div>
+        )}
 
+        {success && (
+          <div
+            style={{
+              background: "#e7d7b8",
+              padding: "12px",
+              borderRadius: "10px",
+              color: "#8A672D",
+              marginBottom: "20px",
+              fontWeight: "700",
+            }}
+          >
+            {success}
+          </div>
+        )}
+
+        {/* LOADING */}
         {loading ? (
-          <div className="loading">
+          <div
+            className="loading"
+            style={{ textAlign: "center", padding: "50px" }}
+          >
             <div className="spinner"></div>
-            <span>Loading order records...</span>
+            <p style={{ marginTop: "10px", color: "#5A4733", fontWeight: "600" }}>
+              Loading order records…
+            </p>
           </div>
         ) : orders.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '80px 20px', color: '#2c2c2c' }}>
-            <div style={{ fontSize: '64px', marginBottom: '16px' }}>📋</div>
-            <h3 style={{ fontSize: '24px', marginBottom: '8px', color: '#2c2c2c', fontWeight: '700' }}>No Orders Found</h3>
-            <p style={{ fontWeight: '600' }}>No order records available at this time</p>
+          <div
+            style={{ textAlign: "center", padding: "80px 20px", color: "#5A4733" }}
+          >
+            <div style={{ fontSize: "60px" }}>📦</div>
+            <h3
+              style={{
+                marginTop: "10px",
+                fontSize: "22px",
+                fontWeight: "800",
+                color: "#3E2F1D",
+              }}
+            >
+              No Orders Yet
+            </h3>
+            <p style={{ fontWeight: "600" }}>Your order history is empty</p>
           </div>
         ) : (
           <div className="grid-responsive">
             {orders.map((order) => {
-              const statusConfig = getStatusConfig(order.status);
+              const statusCfg = getStatusConfig(order.status);
+
               return (
-                <div key={order._id} style={{ 
-                  backgroundColor: 'white', 
-                  borderRadius: '16px', 
-                  padding: '24px', 
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                  border: `2px solid ${statusConfig.color}40`
-                }}>
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'flex-start',
-                    marginBottom: '20px',
-                    flexWrap: 'wrap',
-                    gap: '16px'
-                  }}>
+                <div
+                  key={order._id}
+                  style={{
+                    background: "white",
+                    padding: "24px",
+                    borderRadius: "18px",
+                    border: `2px solid ${statusCfg.color}55`,
+                    boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
+                    transition: "0.3s",
+                  }}
+                >
+                  {/* ORDER HEADER */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      flexWrap: "wrap",
+                      gap: "16px",
+                      marginBottom: "20px",
+                    }}
+                  >
                     <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '20px' }}>🧾</span>
-                        <p style={{ fontSize: '12px', color: '#2c2c2c', margin: 0, fontWeight: '700' }}>ORDER REFERENCE</p>
-                      </div>
-                      <p style={{ margin: '0', fontWeight: '700', fontSize: '16px', fontFamily: 'monospace', color: '#2c2c2c' }}>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "700",
+                          color: "#5A4733",
+                          margin: 0,
+                        }}
+                      >
+                        Reference
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "monospace",
+                          fontSize: "18px",
+                          fontWeight: "800",
+                          color: "#3E2F1D",
+                        }}
+                      >
                         #{order._id.slice(-8).toUpperCase()}
                       </p>
                     </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', justifyContent: 'flex-end' }}>
-                        <span style={{ fontSize: '20px' }}>📊</span>
-                        <p style={{ fontSize: '12px', color: '#2c2c2c', margin: 0, fontWeight: '700' }}>ORDER STATUS</p>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ fontSize: '18px' }}>{statusConfig.icon}</span>
-                        <span style={{
-                          padding: '8px 16px',
-                          borderRadius: '12px',
-                          fontSize: '13px',
-                          fontWeight: '700',
-                          backgroundColor: statusConfig.color,
-                          color: 'white',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.5px'
-                        }}>
-                          {statusConfig.label}
-                        </span>
-                      </div>
+
+                    <div style={{ textAlign: "right" }}>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "700",
+                          color: "#5A4733",
+                          margin: 0,
+                        }}
+                      >
+                        Status
+                      </p>
+
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          background: statusCfg.color,
+                          color: "white",
+                          padding: "8px 14px",
+                          borderRadius: "12px",
+                          fontWeight: "700",
+                          marginTop: "4px",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.5px",
+                          fontSize: "12px",
+                        }}
+                      >
+                        {statusCfg.icon} {statusCfg.label}
+                      </span>
                     </div>
                   </div>
 
-                  <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', 
-                    gap: '20px', 
-                    marginBottom: '20px',
-                    padding: '20px',
-                    backgroundColor: '#f8f9fa',
-                    borderRadius: '12px'
-                  }}>
-                    <div style={{ textAlign: 'center' }}>
-                      <p style={{ fontSize: '12px', color: '#2c2c2c', margin: '0 0 4px 0', fontWeight: '700' }}>TOTAL AMOUNT</p>
-                      <p style={{ margin: '0', fontWeight: '700', fontSize: '20px', color: '#A8E6CF' }}>
+                  {/* ORDER META */}
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))",
+                      gap: "20px",
+                      background: "#FAF3E5",
+                      padding: "16px",
+                      borderRadius: "14px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <div style={{ textAlign: "center" }}>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: "12px",
+                          fontWeight: "700",
+                          color: "#5A4733",
+                        }}
+                      >
+                        Total
+                      </p>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: "20px",
+                          fontWeight: "800",
+                          color: "#B88646",
+                        }}
+                      >
                         ₹{order.totalAmount.toFixed(2)}
                       </p>
                     </div>
-                    <div style={{ textAlign: 'center' }}>
-                      <p style={{ fontSize: '12px', color: '#2c2c2c', margin: '0 0 4px 0', fontWeight: '700' }}>ORDER DATE</p>
-                      <p style={{ margin: '0', fontSize: '14px', fontWeight: '700', color: '#2c2c2c' }}>
-                        {new Date(order.createdAt).toLocaleDateString('en-IN')}
+
+                    <div style={{ textAlign: "center" }}>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: "12px",
+                          fontWeight: "700",
+                          color: "#5A4733",
+                        }}
+                      >
+                        Date
+                      </p>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontWeight: "700",
+                          color: "#3E2F1D",
+                        }}
+                      >
+                        {new Date(order.createdAt).toLocaleDateString("en-IN")}
                       </p>
                     </div>
                   </div>
 
-                  <div style={{ marginBottom: '24px' }}>
-                    <p style={{ fontSize: '16px', fontWeight: '700', margin: '0 0 12px 0', color: '#2c2c2c' }}>Items:</p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {/* ITEMS */}
+                  <div style={{ marginBottom: "16px" }}>
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: "800",
+                        color: "#3E2F1D",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      Items
+                    </p>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                       {order.items.map((item, idx) => (
-                        <div key={idx} style={{ 
-                          display: 'flex', 
-                          justifyContent: 'space-between',
-                          padding: '8px 12px',
-                          backgroundColor: '#f8f9fa',
-                          borderRadius: '8px',
-                          fontSize: '14px',
-                          fontWeight: '600',
-                          color: '#2c2c2c'
-                        }}>
-                          <span>{item.name} × {item.quantity}</span>
-                          <span style={{ fontWeight: '700', color: '#A8E6CF' }}>₹{(item.price * item.quantity).toFixed(2)}</span>
+                        <div
+                          key={idx}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            padding: "10px 12px",
+                            background: "#F8F4EC",
+                            borderRadius: "10px",
+                            fontWeight: "600",
+                            color: "#5A4733",
+                          }}
+                        >
+                          <span>
+                            {item.name} × {item.quantity}
+                          </span>
+                          <span
+                            style={{
+                              fontWeight: "800",
+                              color: "#B88646",
+                            }}
+                          >
+                            ₹{(item.price * item.quantity).toFixed(2)}
+                          </span>
                         </div>
                       ))}
                     </div>
                   </div>
 
+                  {/* BILL BUTTON */}
                   <button
                     onClick={() => setSelectedOrderForBill(order)}
-                    className="btn btn-primary"
-                    style={{ width: '100%', marginBottom: '12px' }}
+                    style={{
+                      width: "100%",
+                      background: "linear-gradient(135deg,#C59B5F,#B88646)",
+                      color: "white",
+                      border: "none",
+                      padding: "12px",
+                      borderRadius: "12px",
+                      fontWeight: "700",
+                      marginBottom: "12px",
+                      cursor: "pointer",
+                    }}
                   >
-                    View & Download Bill
+                    View / Download Bill
                   </button>
 
-                  {user?.role === 'admin' && (
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                      {['pending', 'confirmed', 'preparing', 'ready', 'delivered'].map((status) => (
+                  {/* ADMIN BUTTONS */}
+                  {user?.role === "admin" && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "8px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      {[
+                        "pending",
+                        "confirmed",
+                        "preparing",
+                        "ready",
+                        "delivered",
+                      ].map((status) => (
                         <button
                           key={status}
                           onClick={() => updateStatus(order._id, status)}
                           disabled={order.status === status}
-                          className="btn btn-secondary"
-                          style={{ flex: 1, fontSize: '12px', padding: '8px 12px', minWidth: '80px', opacity: order.status === status ? 0.5 : 1 }}
+                          style={{
+                            flex: 1,
+                            minWidth: "90px",
+                            padding: "10px",
+                            background: "#D8CBB3",
+                            color: "#3E2F1D",
+                            border: "none",
+                            borderRadius: "10px",
+                            fontWeight: "700",
+                            cursor: "pointer",
+                            opacity: order.status === status ? 0.6 : 1,
+                          }}
                         >
                           {status.charAt(0).toUpperCase() + status.slice(1)}
                         </button>
@@ -234,11 +447,20 @@ const Orders = ({ user }) => {
                     </div>
                   )}
 
+                  {/* CANCEL BUTTON */}
                   {canCancelOrder(order) && (
                     <button
                       onClick={() => cancelOrder(order._id)}
-                      className="btn btn-danger"
-                      style={{ width: '100%', marginTop: '12px' }}
+                      style={{
+                        width: "100%",
+                        background: "#B13B3B",
+                        color: "white",
+                        border: "none",
+                        padding: "12px",
+                        borderRadius: "12px",
+                        fontWeight: "700",
+                        cursor: "pointer",
+                      }}
                     >
                       Cancel Order
                     </button>

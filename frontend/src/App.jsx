@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { useCart } from './hooks/useCart';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';   // ✅ ADDED
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -21,10 +22,13 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar user={user} onLogout={logout} cartCount={user ? getCartCount() : 0} />
+
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/login" element={<Login onLogin={login} />} />
         <Route path="/register" element={<Register onLogin={login} />} />
+
         <Route
           path="/dashboard"
           element={
@@ -33,6 +37,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/product/:id"
           element={
@@ -41,6 +46,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/cart"
           element={
@@ -49,6 +55,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/orders"
           element={
@@ -57,31 +64,27 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/admin"
           element={
             <ProtectedRoute user={user} loading={loading}>
-              {user?.role === 'admin' ? (
-                <AdminPanel />
-              ) : (
-                <Navigate to="/" replace />
-              )}
+              {user?.role === 'admin' ? <AdminPanel /> : <Navigate to="/" replace />}
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/super-admin"
           element={
             <ProtectedRoute user={user} loading={loading}>
-              {user?.role === 'admin' ? (
-                <SuperAdmin />
-              ) : (
-                <Navigate to="/" replace />
-              )}
+              {user?.role === 'admin' ? <SuperAdmin /> : <Navigate to="/" replace />}
             </ProtectedRoute>
           }
         />
       </Routes>
+
+      <Footer /> {/* ✅ FOOTER ADDED HERE */}
     </BrowserRouter>
   );
 }

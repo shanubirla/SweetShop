@@ -1,145 +1,177 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const categories = [
-    { name: 'Gulab Jamun', color: '#FFE5F0' },
-    { name: 'Rasgulla', color: '#E5F5F0' },
-    { name: 'Jalebi', color: '#FFF9E5' },
-    { name: 'Barfi', color: '#F0E5FF' },
-    { name: 'Laddu', color: '#FFE5F0' },
+    { name: "Royal Kaju Katli", color: "#FFF4D6" },
+    { name: "Kesariya Peda", color: "#FDEFEF" },
+    { name: "Shahi Gulab Roll", color: "#FFF7E8" },
+    { name: "Malai Barfi", color: "#F4ECFF" },
+    { name: "Dry Fruit Laddu", color: "#FFF4D6" },
   ];
 
   return (
-    <div style={{ background: 'linear-gradient(135deg, #FFF9F5 0%, #F5FFFE 100%)', minHeight: '100vh' }}>
-      {/* Hero Section */}
-      <section style={{
-        minHeight: '600px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-        paddingTop: '80px',
-        paddingBottom: '60px'
-      }}>
-        <div style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '30%',
-          height: '100%',
-          background: 'radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.2), transparent)',
-          pointerEvents: 'none'
-        }} />
-        <div style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          width: '30%',
-          height: '100%',
-          background: 'radial-gradient(circle at 80% 50%, rgba(176, 224, 230, 0.2), transparent)',
-          pointerEvents: 'none'
-        }} />
+    <div
+      style={{
+        background: "linear-gradient(135deg, #FFF9F2, #FFF4E6)",
+        minHeight: "100vh",
+        fontFamily: "Poppins",
+      }}
+    >
+      {/* HERO SECTION */}
+      <section
+        style={{
+          minHeight: "600px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: "80px",
+          paddingBottom: "60px",
+          position: "relative",
+        }}
+      >
+        {/* Left Glow */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: "35%",
+            height: "100%",
+            background:
+              "radial-gradient(circle at 10% 50%, rgba(255,210,140,0.25), transparent)",
+          }}
+        />
 
-        <div style={{ textAlign: 'center', zIndex: 1, maxWidth: '600px', padding: '40px 20px', marginBottom: '40px' }}>
-          <h1 style={{
-            fontSize: '56px',
-            fontWeight: '700',
-            color: '#2c2c2c',
-            marginBottom: '20px',
-            letterSpacing: '-1px'
-          }}>
-            Artisan Treats for Joyful Moments
+        {/* Right Glow */}
+        <div
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            width: "35%",
+            height: "100%",
+            background:
+              "radial-gradient(circle at 90% 50%, rgba(176,132,78,0.15), transparent)",
+          }}
+        />
+
+        <div style={{ textAlign: "center", maxWidth: "650px", zIndex: 2 }}>
+          <h1
+            style={{
+              fontSize: "54px",
+              fontWeight: "800",
+              color: "#3E2F1D",
+              marginBottom: "20px",
+              letterSpacing: "-1px",
+            }}
+          >
+            Crafted Sweetness for Every Celebration
           </h1>
-          <p style={{
-            fontSize: '18px',
-            color: '#2c2c2c',
-            marginBottom: '40px',
-            fontWeight: '600'
-          }}>
-            Handcrafted sweets made with love and premium ingredients
+
+          <p
+            style={{
+              fontSize: "18px",
+              fontWeight: "500",
+              color: "#5a4733",
+              marginBottom: "40px",
+            }}
+          >
+            Handcrafted Indian delicacies prepared with purity, passion, and
+            tradition.
           </p>
-          <Link to="/dashboard" className="btn btn-primary" style={{
-            background: 'linear-gradient(135deg, #A8E6CF 0%, #7FE5D9 100%)',
-            color: 'white',
-            fontSize: '16px',
-            padding: '14px 40px',
-            borderRadius: '50px',
-            fontWeight: '700',
-            display: 'inline-block',
-            textDecoration: 'none',
-            boxShadow: '0 8px 24px rgba(168, 230, 207, 0.3)'
-          }}>
-            Shop Now
+
+          <Link
+            to="/dashboard"
+            style={{
+              background: "linear-gradient(135deg, #C59B5F, #B88646)",
+              color: "white",
+              padding: "14px 40px",
+              borderRadius: "50px",
+              textDecoration: "none",
+              fontWeight: "700",
+              boxShadow: "0 8px 20px rgba(181, 140, 70, 0.25)",
+            }}
+          >
+            Explore Sweets
           </Link>
         </div>
 
-        <div style={{
-          fontSize: '48px',
-          animation: 'bounce 2s infinite',
-          color: '#A8E6CF',
-          fontWeight: '300',
-          letterSpacing: '2px',
-          zIndex: 1
-        }}>
-          ◆
+        <div
+          style={{
+            fontSize: "48px",
+            color: "#C59B5F",
+            marginTop: "40px",
+            animation: "bounce 2s infinite",
+            fontWeight: 300,
+          }}
+        >
+          ❁
         </div>
       </section>
 
-      {/* Category Grid */}
-      <section style={{ padding: '80px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{
-          fontSize: '42px',
-          fontWeight: '700',
-          color: '#2c2c2c',
-          textAlign: 'center',
-          marginBottom: '60px'
-        }}>
-          Our Collections
+      {/* CATEGORY SECTION */}
+      <section style={{ padding: "80px 20px", maxWidth: "1200px", margin: "0 auto" }}>
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "42px",
+            fontWeight: "700",
+            color: "#3E2F1D",
+            marginBottom: "60px",
+          }}
+        >
+          Signature Collections
         </h2>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '24px'
-        }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "24px",
+          }}
+        >
           {categories.map((cat) => (
-            <Link
-              key={cat.name}
-              to="/dashboard"
-              style={{
-                textDecoration: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              <div style={{
-                background: cat.color,
-                borderRadius: '20px',
-                padding: '40px 20px',
-                textAlign: 'center',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
-                border: '2px solid #A8E6CF',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
-              }}>
-                <div style={{ fontSize: '48px', marginBottom: '16px', color: '#A8E6CF', fontWeight: '300', letterSpacing: '2px' }}>
-                  ◆
+            <Link key={cat.name} to="/dashboard" style={{ textDecoration: "none" }}>
+              <div
+                style={{
+                  background: cat.color,
+                  borderRadius: "18px",
+                  padding: "40px 20px",
+                  textAlign: "center",
+                  border: "1px solid #C59B5F",
+                  transition: "0.3s ease",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-8px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 28px rgba(0,0,0,0.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 16px rgba(0,0,0,0.1)";
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "46px",
+                    color: "#B88646",
+                    marginBottom: "12px",
+                    fontWeight: 300,
+                  }}
+                >
+                  ❁
                 </div>
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: '700',
-                  color: '#2c2c2c',
-                  margin: 0
-                }}>
+
+                <h3
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    color: "#3E2F1D",
+                  }}
+                >
                   {cat.name}
                 </h3>
               </div>
@@ -148,99 +180,112 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section style={{
-        padding: '80px 20px',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '60px',
-        alignItems: 'center'
-      }}>
-        <div style={{
-          background: 'linear-gradient(135deg, #FFE5F0 0%, #E5F5F0 100%)',
-          borderRadius: '20px',
-          height: '400px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '48px',
-          color: '#A8E6CF',
-          fontWeight: '300',
-          letterSpacing: '2px',
-          border: '2px solid #A8E6CF'
-        }}>
-          ◆
+      {/* ABOUT SECTION */}
+      <section
+        style={{
+          padding: "80px 20px",
+          maxWidth: "1200px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "60px",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            background: "linear-gradient(135deg, #FFF4D6, #FBE9C8)",
+            height: "400px",
+            borderRadius: "20px",
+            border: "2px solid #C59B5F",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "48px",
+            color: "#B88646",
+            fontWeight: 300,
+          }}
+        >
+          ❁
         </div>
 
         <div>
-          <h2 style={{
-            fontSize: '42px',
-            fontWeight: '700',
-            color: '#2c2c2c',
-            marginBottom: '20px'
-          }}>
-            Our Story
+          <h2
+            style={{
+              fontSize: "42px",
+              color: "#3E2F1D",
+              marginBottom: "20px",
+              fontWeight: "700",
+            }}
+          >
+            Tradition in Every Bite
           </h2>
-          <p style={{
-            fontSize: '16px',
-            color: '#2c2c2c',
-            lineHeight: '1.8',
-            marginBottom: '16px',
-            fontWeight: '600'
-          }}>
-            Sweet Heaven was founded with a passion for creating artisan treats that bring joy to every moment. Each sweet is carefully crafted using premium ingredients and traditional recipes passed down through generations.
+
+          <p
+            style={{
+              fontSize: "16px",
+              color: "#5A4733",
+              fontWeight: "500",
+              lineHeight: "1.8",
+              marginBottom: "16px",
+            }}
+          >
+            Every sweet is handcrafted using recipes passed down through
+            generations—bringing authentic flavors to your celebrations.
           </p>
-          <p style={{
-            fontSize: '16px',
-            color: '#2c2c2c',
-            lineHeight: '1.8',
-            fontWeight: '600'
-          }}>
-            We believe in quality over quantity, sustainability, and making every customer feel special. Visit us today and experience the magic of handmade sweets!
+
+          <p
+            style={{
+              fontSize: "16px",
+              color: "#5A4733",
+              fontWeight: "500",
+              lineHeight: "1.8",
+            }}
+          >
+            Using only premium ingredients, we ensure purity, freshness, and a
+            melt-in-mouth experience.
           </p>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section style={{
-        padding: '80px 20px',
-        textAlign: 'center',
-        background: 'linear-gradient(135deg, #A8E6CF 0%, #7FE5D9 100%)',
-        margin: '60px 20px',
-        borderRadius: '20px',
-        maxWidth: '1200px',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      }}>
-        <h2 style={{
-          fontSize: '42px',
-          fontWeight: '700',
-          color: 'white',
-          marginBottom: '20px'
-        }}>
-          Ready to Indulge?
+      {/* CTA SECTION */}
+      <section
+        style={{
+          padding: "80px 20px",
+          textAlign: "center",
+          background: "linear-gradient(135deg, #C59B5F, #B88646)",
+          borderRadius: "20px",
+          maxWidth: "1200px",
+          margin: "60px auto",
+          color: "white",
+        }}
+      >
+        <h2 style={{ fontSize: "42px", fontWeight: "700", marginBottom: "20px" }}>
+          Bring Home the Sweetness
         </h2>
-        <p style={{
-          fontSize: '18px',
-          color: 'white',
-          marginBottom: '30px',
-          fontWeight: '600'
-        }}>
-          Explore our full collection of delicious treats
+
+        <p
+          style={{
+            fontSize: "18px",
+            fontWeight: "500",
+            marginBottom: "30px",
+          }}
+        >
+          Discover our handpicked selection of luxurious Indian sweets.
         </p>
-        <Link to="/dashboard" className="btn btn-primary" style={{
-          background: 'white',
-          color: '#A8E6CF',
-          fontSize: '16px',
-          padding: '14px 40px',
-          borderRadius: '50px',
-          fontWeight: '700',
-          display: 'inline-block',
-          textDecoration: 'none',
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)'
-        }}>
+
+        <Link
+          to="/dashboard"
+          style={{
+            background: "#fff",
+            color: "#B88646",
+            padding: "14px 40px",
+            borderRadius: "50px",
+            textDecoration: "none",
+            fontWeight: "700",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+          }}
+        >
           Browse Collection
         </Link>
       </section>
@@ -248,7 +293,7 @@ const Home = () => {
       <style>{`
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
+          50% { transform: translateY(-18px); }
         }
       `}</style>
     </div>
@@ -256,3 +301,4 @@ const Home = () => {
 };
 
 export default Home;
+
