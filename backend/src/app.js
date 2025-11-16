@@ -11,8 +11,8 @@ const corsOptions = {
   origin: [
     'http://localhost:5173',
     'http://localhost:3000',
-    'https://sweet-shop-ruby.vercel.app/',
-     'https://sweet-shop-git-main-shanu-birlas-projects.vercel.app/',
+    'https://sweet-shop-ruby.vercel.app',
+     'https://sweet-shop-git-main-shanu-birlas-projects.vercel.app',
      'https://sweet-shop-hxeqbr7s0-shanu-birlas-projects.vercel.app/',
     process.env.FRONTEND_URL || 'http://localhost:5173'
   ],
