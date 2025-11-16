@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
-import SweetCard from "../components/SweetCard";
+import SweetCard from "../components/SweetCard.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {

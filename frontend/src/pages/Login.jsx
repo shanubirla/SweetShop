@@ -12,6 +12,7 @@ export default function Login() {
   const submit = async (e) => {
   e.preventDefault();
   const loggedUser = await login(email, password, role);
+  console.log(loggedUser);
   if (!loggedUser || !loggedUser.role) {
   alert("Invalid login. Role missing.");
   return;
