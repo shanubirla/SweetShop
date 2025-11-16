@@ -12,10 +12,12 @@ This project is a complete **Sweet Shop Management System** built as a **Test-Dr
 
 # 📸 **Live Demo (Optional)**
 
-👉 **[https://sweet-heaven.vercel.app/](https://sweet-heaven.vercel.app/)**
-*(Add your deployed link here once ready)*
+👉 **[https://sweet-shop-hxeqbr7s0-shanu-birlas-projects.vercel.app/](https://sweet-shop-hxeqbr7s0-shanu-birlas-projects.vercel.app/)**
+
 
 ---
+  
+
 
 # 🍮 **Table of Contents**
 
@@ -170,7 +172,7 @@ A full test summary is provided in **TEST_REPORT.md**
 | Commit transparency using AI | ✔ Done                       |
 | README with AI Usage         | ✔ Included                   |
 | Test Report                  | ✔ Included                   |
-| Screenshots                  | ✔ Included (add your images) |
+| Screenshots                  | ✔ Included |
 
 ---
 
@@ -179,7 +181,7 @@ A full test summary is provided in **TEST_REPORT.md**
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git clone https://github.com/shanubirla/SweetShop
 cd sweet-shop
 ```
 
@@ -278,8 +280,7 @@ Backend API at:
 
 # 🖼 **9. Screenshots**
 
-> **Add your images here** for evaluation
-> Example template:
+
 
 ### 🏠 Dashboard
 
@@ -301,7 +302,7 @@ Backend API at:
 
 # 🤖 **10. My AI Usage (MANDATORY for Kata)**
 
-This section is REQUIRED by the assignment.
+
 
 ### **AI Tools Used**
 
@@ -343,7 +344,7 @@ All commits influenced by AI include:
 Co-authored-by: AI Assistant <AI@users.noreply.github.com>
 ```
 
-As required in the Kata.
+
 
 ---
 
