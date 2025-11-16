@@ -408,7 +408,3 @@ All tests pass successfully, validating core backend and frontend functionality.
 
 ---
 
-If you'd like, I can also generate:
-📘 A **PDF test report**,
-📊 A **graphical coverage chart**, or
-📝 An **Executive QA Summary** for submissions.
