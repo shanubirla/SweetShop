@@ -1,11 +1,32 @@
 const mongoose = require('mongoose');
 
-const SweetSchema = new mongoose.Schema({
-  name: { type: String, required: true, index: true },
-  category: { type: String, default: 'General', index: true },
-  price: { type: Number, required: true, default: 0 },
-  quantity: { type: Number, default: 0 },
-  description: { type: String, default: '' },
-  imageUrl: String,   // <-- Add this
-}, { timestamps: true });
-module.exports = mongoose.model('Sweet', SweetSchema);
+const sweetSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      default: 0,
+    },
+    image: {
+      type: String,
+      default: 'https://via.placeholder.com/300x200/00bcd4/ffffff?text=Sweet',
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+module.exports = mongoose.model('Sweet', sweetSchema);

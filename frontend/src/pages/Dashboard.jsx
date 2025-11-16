@@ -1,82 +1,120 @@
-import { useEffect, useState } from "react";
-import API from "../api/api";
-import SweetCard from "../components/SweetCard.jsx";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { sweetsAPI } from '../utils/api';
+import { useCart } from '../hooks/useCart';
+import SweetCard from '../components/SweetCard';
+import SearchBar from '../components/SearchBar';
 
-export default function Dashboard() {
+const Dashboard = ({ user }) => {
   const [sweets, setSweets] = useState([]);
-  const [cart, setCart] = useState([]);
-  const navigate = useNavigate();
-
-  const load = async () => {
-    const { data } = await API.get("/sweets");
-    setSweets(data.sweets || data);
-  };
-
-  const addToCart = (sweet) => {
-    setCart((prev) => [...prev, sweet]);
-  };
-
-  const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((s) => s._id !== id));
-  };
-
-  const purchase = async (id) => {
-    await API.post(`/sweets/${id}/purchase`);
-    load();
-  };
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const { addToCart } = useCart();
 
   useEffect(() => {
-    load();
+    fetchSweets();
   }, []);
 
+  const fetchSweets = async () => {
+    try {
+      setLoading(true);
+      const { data } = await sweetsAPI.getAllSweets();
+      setSweets(data.sweets);
+      setError('');
+    } catch (err) {
+      setError('Failed to load sweets');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = async (filters) => {
+    try {
+      setLoading(true);
+      if (Object.values(filters).every(v => v === undefined)) {
+        await fetchSweets();
+      } else {
+        const { data } = await sweetsAPI.searchSweets(filters);
+        setSweets(data.sweets);
+      }
+    } catch {
+      setError('Search failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddToCart = async (sweetId, quantity) => {
+    const success = await addToCart(sweetId, quantity);
+    if (success) {
+      setSuccessMessage('✅ Added to cart!');
+      setTimeout(() => setSuccessMessage(''), 3000);
+    } else {
+      setError('Failed to add to cart');
+    }
+  };
+
+  const handleEdit = (sweet) => {
+    window.location.href = `/admin?edit=${sweet._id}`;
+  };
+
+  const handleDelete = async (sweetId) => {
+    if (window.confirm('Are you sure you want to delete this sweet?')) {
+      try {
+        await sweetsAPI.deleteSweet(sweetId);
+        setSuccessMessage('✅ Sweet deleted!');
+        fetchSweets();
+      } catch (err) {
+        setError('Failed to delete sweet');
+      }
+    }
+  };
+
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Available Sweets 🍬</h2>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #FFF9F5 0%, #F5FFFE 100%)', paddingTop: '80px', paddingBottom: '40px' }}>
+      <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <h1 className="section-title">Our Premium Collection</h1>
+          <p style={{ fontSize: '16px', color: '#2c2c2c', marginTop: '10px', fontWeight: '600' }}>
+            Handcrafted sweets made with the finest ingredients
+          </p>
+        </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {sweets.map((s) => (
-          <div key={s._id} className="bg-white p-4 rounded shadow">
-            <h3 className="font-bold">{s.name}</h3>
-            <p>{s.category}</p>
-            <p>₹{s.price}</p>
-            <p>Stock: {s.quantity}</p>
+        {error && <div className="alert alert-error">{error}</div>}
 
-            <button
-              className="btn bg-pink-600 text-white w-full mt-2"
-              onClick={() => addToCart(s)}
-            >
-              Add to Cart
-            </button>
+        {successMessage && (
+          <div className="alert alert-success">{successMessage}</div>
+        )}
 
-            <button
-              className="btn bg-green-600 text-white w-full mt-2"
-              onClick={() => purchase(s._id)}
-            >
-              Purchase
-            </button>
+        <SearchBar onSearch={handleSearch} />
+
+        {loading ? (
+          <div className="loading">
+            <div className="spinner"></div>
+            <span>Loading our delicious collection...</span>
           </div>
-        ))}
-      </div>
-
-      <h2 className="text-2xl font-bold my-6">Your Cart 🛒</h2>
-
-      <div className="space-y-3">
-        {cart.map((item) => (
-          <div
-            key={item._id}
-            className="bg-white p-4 rounded shadow flex justify-between"
-          >
-            <span>{item.name} - ₹{item.price}</span>
-            <button
-              onClick={() => removeFromCart(item._id)}
-              className="text-red-600 font-semibold"
-            >
-              Remove
-            </button>
+        ) : sweets.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '60px 20px', color: '#2c2c2c' }}>
+            <p style={{ fontSize: '18px', fontWeight: '700' }}>No sweets available at the moment</p>
           </div>
-        ))}
+        ) : (
+          <div className="grid grid-4">
+            {sweets.map((sweet) => (
+              <SweetCard
+                key={sweet._id}
+                sweet={sweet}
+                isAdmin={user?.role === 'admin'}
+                onAddToCart={handleAddToCart}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
+
+export default Dashboard;

@@ -1,104 +1,28 @@
-const express = require("express");
-const Sweet = require("../models/Sweet");
-const auth = require("../middleware/auth");
-const admin = require("../middleware/adminOnly");
+const express = require('express');
+const sweetsController = require('../controllers/sweetsController');
+const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 const router = express.Router();
 
-// CREATE SWEET (admin)
-router.post("/", auth, admin, async (req, res) => {
-  try {
-    const sweet = await Sweet.create(req.body);
-    return res.status(201).json(sweet);
-  } catch (err) {
-    return res.status(500).json({ message: "Error creating sweet" });
-  }
-});
+// GET /api/sweets/search - Search sweets (must come before /:id route)
+router.get('/search', sweetsController.searchSweets);
 
-// LIST SWEETS
-router.get("/", auth, async (req, res) => {
-  const sweets = await Sweet.find();
-  return res.status(200).json(sweets);
-});
+// POST /api/sweets - Create sweet (admin only)
+router.post('/', authMiddleware, adminMiddleware, sweetsController.createSweet);
 
-// SEARCH SWEETS
-router.get("/search", auth, async (req, res) => {
-  const { name, category, min, max } = req.query;
+// GET /api/sweets - Get all sweets
+router.get('/', sweetsController.getAllSweets);
 
-  const query = {};
-  if (name) query.name = new RegExp(name, "i");
-  if (category) query.category = new RegExp(category, "i");
-  if (min || max) query.price = {};
+// PUT /api/sweets/:id - Update sweet (admin only)
+router.put('/:id', authMiddleware, adminMiddleware, sweetsController.updateSweet);
 
-  if (min) query.price.$gte = Number(min);
-  if (max) query.price.$lte = Number(max);
+// DELETE /api/sweets/:id - Delete sweet (admin only)
+router.delete('/:id', authMiddleware, adminMiddleware, sweetsController.deleteSweet);
 
-  const sweets = await Sweet.find(query);
-  return res.status(200).json(sweets);
-});
+// POST /api/sweets/:id/purchase - Purchase sweet
+router.post('/:id/purchase', authMiddleware, sweetsController.purchaseSweet);
 
-// =========================
-// INVENTORY ROUTES (ORDER FIXED HERE)
-// =========================
-
-// PURCHASE SWEET (user)
-router.post("/:id/purchase", auth, async (req, res) => {
-  try {
-    const sweet = await Sweet.findById(req.params.id);
-    if (!sweet) return res.status(404).json({ message: "Sweet not found" });
-
-    if (sweet.quantity <= 0)
-      return res.status(400).json({ message: "Out of stock" });
-
-    sweet.quantity -= 1;
-    await sweet.save();
-    return res.status(200).json(sweet);
-  } catch (err) {
-    return res.status(500).json({ message: "Error purchasing" });
-  }
-});
-
-// RESTOCK SWEET (admin)
-router.post("/:id/restock", auth, admin, async (req, res) => {
-  try {
-    const { amount } = req.body;
-    const sweet = await Sweet.findById(req.params.id);
-    if (!sweet) return res.status(404).json({ message: "Sweet not found" });
-
-    sweet.quantity = amount;
-    await sweet.save();
-    return res.status(200).json(sweet);
-  } catch (err) {
-    return res.status(500).json({ message: "Error restocking" });
-  }
-});
-
-// =========================
-// PUT & DELETE MUST COME AFTER PURCHASE/RESTOCK
-// =========================
-
-// UPDATE SWEET (admin)
-router.put("/:id", auth, admin, async (req, res) => {
-  try {
-    const sweet = await Sweet.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    return res.status(200).json(sweet);
-  } catch (err) {
-    return res.status(500).json({ message: "Error updating sweet" });
-  }
-});
-
-// DELETE SWEET (admin)
-router.delete("/:id", auth, admin, async (req, res) => {
-  try {
-    await Sweet.findByIdAndDelete(req.params.id);
-    return res.status(200).json({ message: "Sweet deleted" });
-  } catch (err) {
-    return res.status(500).json({ message: "Error deleting sweet" });
-  }
-});
+// POST /api/sweets/:id/restock - Restock sweet (admin only)
+router.post('/:id/restock', authMiddleware, adminMiddleware, sweetsController.restockSweet);
 
 module.exports = router;

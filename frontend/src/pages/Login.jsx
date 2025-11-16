@@ -1,96 +1,102 @@
-import { useState } from "react";
-import { useAuth } from "../Context/AuthContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { authAPI } from '../utils/api';
 
-export default function Login() {
-  const { login } = useAuth();
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
 
-  const submit = async (e) => {
-  e.preventDefault();
-  const loggedUser = await login(email, password, role);
-  console.log(loggedUser);
-  if (!loggedUser || !loggedUser.role) {
-  alert("Invalid login. Role missing.");
-  return;
-}
-  if (loggedUser.role.toLowerCase() === "admin") {
-  navigate("/admin");
-} else {
-  navigate("/user");
-}
+  const handleLogin = async (loginType) => {
+    setError('');
+    setLoading(true);
 
-};
+    try {
+      const { data } = loginType === 'admin' 
+        ? await authAPI.loginAdmin(email, password)
+        : await authAPI.loginUser(email, password);
+      
+      onLogin(data.user, data.token);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-pink-200 p-6">
-      
-      {/* Card */}
-      <div className="w-full max-w-md bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 border border-white/40 animate-fadeInUp">
-        
-        <h2 className="text-3xl font-extrabold text-center text-pink-600 mb-6">
-          Welcome Back 👋
-        </h2>
-        
-        <form onSubmit={submit} className="space-y-5">
-          
-          {/* Email */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Email</label>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #FFF9F5 0%, #F5FFFE 100%)', paddingTop: '60px' }}>
+      <div className="form-container">
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <h2 style={{ color: '#2c2c2c', fontSize: '32px', marginBottom: '10px', fontWeight: '700' }}>Welcome Back</h2>
+          <p style={{ color: '#2c2c2c', fontWeight: '600' }}>Sign in to your Sweet Heaven account</p>
+        </div>
+
+        {error && <div className="alert alert-error">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-400 focus:outline-none transition-all bg-white/80"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="yourname@example.com"
+              required
+              className="form-control"
+              placeholder="your@email.com"
             />
           </div>
 
-          {/* Password */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Password</label>
+          <div className="form-group">
+            <label className="form-label">Password</label>
             <input
               type="password"
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-400 focus:outline-none transition-all bg-white/80"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••••"
+              required
+              className="form-control"
+              placeholder="••••••••"
             />
           </div>
 
-          {/* Role Selector */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Login as</label>
-            <select
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white/80 focus:ring-2 focus:ring-pink-400 focus:outline-none transition-all"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+          <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+            <button
+              type="button"
+              onClick={() => handleLogin('user')}
+              disabled={loading || !email || !password}
+              className="btn btn-primary"
+              style={{ flex: 1 }}
             >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
+              {loading ? 'Signing in...' : 'Login as User'}
+            </button>
+            <button
+              type="button"
+              onClick={() => handleLogin('admin')}
+              disabled={loading || !email || !password}
+              className="btn btn-secondary"
+              style={{ flex: 1 }}
+            >
+              {loading ? 'Signing in...' : 'Login as Admin'}
+            </button>
           </div>
-
-          {/* Login Button */}
-          <button
-            className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
-          >
-            Login
-          </button>
-
         </form>
 
-        {/* Footer text */}
-        <p className="text-center text-gray-600 mt-4 text-sm">
-          Don't have an account?{" "}
-          <span className="text-pink-600 font-semibold cursor-pointer hover:underline" onClick={() => navigate('/register')}>
-            Register
-          </span>
+        <p style={{ textAlign: 'center', marginTop: '20px', color: '#2c2c2c', fontWeight: '600' }}>
+          Don't have an account?{' '}
+          <Link to="/register" style={{ color: '#A8E6CF', fontWeight: '700', textDecoration: 'none' }}>
+            Sign up here
+          </Link>
         </p>
       </div>
     </div>
   );
-}
+};
+
+export default Login;

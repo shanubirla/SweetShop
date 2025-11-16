@@ -1,20 +1,27 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+// REFACTOR: Consider using more descriptive error messages and proper status codes
+const jwt = require('jsonwebtoken');
 
-module.exports = async (req, res, next) => {
+const authMiddleware = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
   try {
-    const header = req.headers.authorization;
-    if (!header) return res.status(401).json({ message: "No token" });
-
-    const token = header.split(" ")[1];
-    if (!token) return res.status(401).json({ message: "Invalid token" });
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.user = decoded; // { id, role }
-
+    req.user = decoded;
     next();
-  } catch (err) {
-    return res.status(401).json({ message: "Unauthorized" });
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
   }
 };
+
+const adminMiddleware = (req, res, next) => {
+  if (!req.user || req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+  next();
+};
+
+module.exports = { authMiddleware, adminMiddleware };

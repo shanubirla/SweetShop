@@ -1,31 +1,89 @@
-import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/Navbar.jsx";
-import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import AdminDashboard from "./pages/AdminDashboard";
-import AddSweet from "./pages/AddSweet";
-import EditSweet from "./pages/EditSweet";
-import Dashboard from "./pages/Dashboard.jsx";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
+import { useCart } from './hooks/useCart';
+import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import ProductDetail from './pages/ProductDetail';
+import AdminPanel from './pages/AdminPanel';
+import SuperAdmin from './pages/SuperAdmin';
+import Cart from './pages/Cart';
+import Orders from './pages/Orders';
+import './App.css';
 
-export default function App() {
+function App() {
+  const { user, login, logout, loading } = useAuth();
+  const { getCartCount } = useCart();
+
   return (
-    <div className="min-h-screen bg-pink-50">
-      <NavBar />
-
+    <BrowserRouter>
+      <Navbar user={user} onLogout={logout} cartCount={user ? getCartCount() : 0} />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/user" element={<Dashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-
-        <Route path="/admin/add" element={<AddSweet />} />
-        <Route path="/admin/edit/:id" element={<EditSweet />} />
-
-        <Route path="*" element={<div className="p-6">Page Not Found</div>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login onLogin={login} />} />
+        <Route path="/register" element={<Register onLogin={login} />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute user={user} loading={loading}>
+              <Dashboard user={user} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <ProtectedRoute user={user} loading={loading}>
+              <ProductDetail user={user} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute user={user} loading={loading}>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute user={user} loading={loading}>
+              <Orders user={user} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute user={user} loading={loading}>
+              {user?.role === 'admin' ? (
+                <AdminPanel />
+              ) : (
+                <Navigate to="/" replace />
+              )}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/super-admin"
+          element={
+            <ProtectedRoute user={user} loading={loading}>
+              {user?.role === 'admin' ? (
+                <SuperAdmin />
+              ) : (
+                <Navigate to="/" replace />
+              )}
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
+
+export default App;

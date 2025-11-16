@@ -1,95 +1,125 @@
-import { useState } from "react";
-import { useAuth } from "../Context/AuthContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { authAPI } from '../utils/api';
 
-export default function Register() {
-  const { register } = useAuth();
+const Register = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState('user');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  // NEW role field
-  const [role, setRole] = useState("user");
-
-  const submit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await register(fullname, email, password, role); // passing role
-    navigate("/");
+    setError('');
+    setSuccess('');
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await authAPI.register(email, password, role);
+      setSuccess('Account created successfully! Redirecting to login...');
+      setTimeout(() => navigate('/login'), 2000);
+    } catch (err) {
+      setError(err.response?.data?.error || 'Registration failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-pink-200 p-6">
-      <div className="w-full max-w-md bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl p-8 border border-white/40">
-        
-        <h2 className="text-3xl font-extrabold text-center text-pink-600 mb-6">
-          Create Your Account ✨
-        </h2>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #FFF9F5 0%, #F5FFFE 100%)', paddingTop: '60px' }}>
+      <div className="form-container">
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <h2 style={{ color: '#2c2c2c', fontSize: '32px', marginBottom: '10px', fontWeight: '700' }}>Join Sweet Heaven</h2>
+          <p style={{ color: '#2c2c2c', fontWeight: '600' }}>Create your account to start shopping</p>
+        </div>
 
-        <form onSubmit={submit} className="space-y-5">
+        {error && <div className="alert alert-error">{error}</div>}
+        {success && <div className="alert alert-success">{success}</div>}
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Full Name</label>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white/80 focus:ring-2 focus:ring-pink-400 focus:outline-none"
-              value={fullname}
-              onChange={(e) => setFullname(e.target.value)}
-              placeholder="Enter your full name"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Email</label>
-            <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white/80 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              required
+              className="form-control"
+              placeholder="your@email.com"
             />
           </div>
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Password</label>
+          <div className="form-group">
+            <label className="form-label">Password</label>
             <input
               type="password"
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white/80 focus:ring-2 focus:ring-pink-400 focus:outline-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Create a password"
+              required
+              className="form-control"
+              placeholder="••••••••"
             />
           </div>
 
-          {/* NEW ROLE DROPDOWN */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Register As</label>
+          <div className="form-group">
+            <label className="form-label">Confirm Password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              className="form-control"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Register as</label>
             <select
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white/80 focus:ring-2 focus:ring-pink-400 focus:outline-none"
               value={role}
               onChange={(e) => setRole(e.target.value)}
+              className="form-control"
+              style={{ cursor: 'pointer' }}
             >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
+              <option value="user">Customer</option>
+              <option value="admin">Shop Manager (Admin)</option>
             </select>
           </div>
 
-          <button className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all">
-            Register
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-primary"
+            style={{ width: '100%', marginTop: '20px' }}
+          >
+            {loading ? 'Creating Account...' : 'Sign Up'}
           </button>
-
         </form>
 
-        <p className="text-center text-gray-600 mt-4">
-          Already have an account?{" "}
-          <span
-            className="text-pink-600 font-semibold cursor-pointer hover:underline"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </span>
+        <p style={{ textAlign: 'center', marginTop: '20px', color: '#2c2c2c', fontWeight: '600' }}>
+          Already have an account?{' '}
+          <Link to="/login" style={{ color: '#A8E6CF', fontWeight: '700', textDecoration: 'none' }}>
+            Sign in here
+          </Link>
         </p>
-
       </div>
     </div>
   );
-}
+};
+
+export default Register;
