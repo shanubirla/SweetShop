@@ -1,234 +1,214 @@
 
 
-<div align="center">
+# ✨ **The Mithai Box — Sweet Shop Management System**
 
-# ✨🍮 **THE MITHAI BOX**  
-### *Premium Sweet Shop Management System*  
-#### MERN • Golden Brown UI • Admin + Super Admin • Full E-Commerce Flow  
+### A Full-Stack TDD Kata (Node.js + React)
 
-<img src="https://img.icons8.com/emoji/96/custard.png" width="90"/>
+### Premium Gold × Brown × Cream Theme
 
----
-
-# 🚀 Live Demo  
-### 🔗 https://your-live-demo-link.com  
-*(Replace with your actual link)*
+This project is a complete **Sweet Shop Management System** built as a **Test-Driven Development (TDD) Kata**, featuring a fully functional backend API, modern frontend interface, authentication, admin controls, and a polished luxury UI inspired by premium mithai brands.
 
 ---
 
-# 🛠 Tech Stack Badges
+# 📸 **Live Demo (Optional)**
 
-### **Frontend**
-![React](https://img.shields.io/badge/React-18.0+-blue?style=for-the-badge&logo=react)
-![Vite](https://img.shields.io/badge/Vite-Frontend-yellow?style=for-the-badge&logo=vite)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=for-the-badge&logo=javascript)
-![CSS](https://img.shields.io/badge/Custom_CSS-Golden_Theme-brown?style=for-the-badge)
+👉 **[https://sweet-heaven.vercel.app/](https://sweet-heaven.vercel.app/)**
+*(Add your deployed link here once ready)*
+
+---
+
+# 🍮 **Table of Contents**
+
+* ⭐ Overview
+* 🔧 Features
+* 🧪 TDD Methodology
+* 🏗 Tech Stack
+* 🎯 Requirements (Kata Compliance)
+* ⚙ Setup Instructions
+* 🚀 Running the Project
+* 🧷 API Endpoints
+* 🛒 Frontend Functionality
+* 🖼 Screenshots
+* 🤖 My AI Usage (MANDATORY)
+* 📦 Project Structure
+* 🧪 Test Report
+* 📚 Troubleshooting
+* 📄 License
+
+---
+
+# ⭐ **1. Overview**
+
+**The Mithai Box** is a full-stack, production-ready Sweet Shop Management System built under strict **TDD (Red → Green → Refactor)** principles.
+
+It includes:
+
+✔ Complete REST API
+✔ User authentication
+✔ Sweet inventory management
+✔ Search & filter
+✔ Purchase & restock system
+✔ Cart & orders
+✔ Admin + Super Admin dashboards
+✔ Clean, luxurious UI inspired by mithai shops
+✔ Comprehensive test suite
+✔ AI usage transparency
+
+---
+
+# 🔧 **2. Core Features**
+
+### 👤 **Authentication**
+
+* User registration
+* Login
+* JWT-based authentication
+* Role-based permissions (User/Admin)
+
+### 🍬 **Sweet Management**
+
+* Add sweet (Admin)
+* Edit sweet (Admin)
+* Delete sweet (Admin)
+* View all sweets
+* Search sweets by name/category/price
+* Purchase sweet (decreases stock)
+* Restock sweet (Admin only)
+
+### 🛒 **User Experience**
+
+* Product dashboard
+* Advanced filters
+* Shopping cart
+* Order placement
+* Order history
+* Product detail page
+* Buy Now
+* Quantity limitations based on stock
+
+### 🛠 Admin & Super Admin
+
+* Inventory management
+* Business analytics
+* Discount campaigns
+* Marketing banners
+* User management
+
+---
+
+# 🧪 **3. TDD Methodology**
+
+This project strictly follows **Test-Driven Development**:
+
+### 🔴 RED
+
+Write failing tests first
+
+### 🟢 GREEN
+
+Write minimal code to pass tests
+
+### 🔵 REFACTOR
+
+Improve code without breaking tests
+
+Test coverage includes:
+
+✔ Authentication
+✔ Sweets CRUD
+✔ Purchase/restock logic
+✔ Cart logic
+✔ Search & filtering
+✔ API validation
+✔ Frontend component tests
+✔ Edge cases (out of stock, invalid login, coupon failures, etc.)
+
+A full test summary is provided in **TEST_REPORT.md**
+
+---
+
+# 🏗 **4. Tech Stack**
 
 ### **Backend**
-![Node.js](https://img.shields.io/badge/Node.js-Backend-green?style=for-the-badge&logo=node.js)
-![Express](https://img.shields.io/badge/Express.js-API-black?style=for-the-badge&logo=express)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen?style=for-the-badge&logo=mongodb)
-![JWT](https://img.shields.io/badge/JWT-Auth-purple?style=for-the-badge&logo=jsonwebtokens)
-![Bcrypt](https://img.shields.io/badge/Bcrypt-Security-red?style=for-the-badge)
+
+* Node.js (Express)
+* MongoDB (Mongoose)
+* JWT Authentication
+* bcrypt password hashing
+* Jest + Supertest (TDD)
+
+### **Frontend**
+
+* React 19
+* Vite
+* React Router 7
+* Axios
+* Vitest + React Testing Library
+
+### **Others**
+
+* Modular architecture
+* ESLint formatting
+* Environment-based config
+* Vercel + Render for deployment
 
 ---
 
-</div>
+# 🎯 **5. Kata Requirements (100% Completed)**
 
-# 🍰 Overview
-
-**The Mithai Box** is a full-stack MERN application built for sweet shop businesses with:
-
-✔ Luxury **golden-brown mithai theme**  
-✔ Customer shopping experience  
-✔ Admin inventory + order management  
-✔ Super Admin operations dashboard  
-✔ Coupons, banners, billing system  
-✔ Real-time-like UI feedback  
-
----
-
-# ✨ Features
-
-## 🛍 Customer
-- Browse sweets with photos & categories  
-- Add to cart / Buy now  
-- Product details with stock indicator  
-- Smart search filters  
-- Apply coupons  
-- Track orders with status icons  
-- Download **PDF-ready bill**  
+| Requirement                  | Status                       |
+| ---------------------------- | ---------------------------- |
+| Backend API with DB          | ✔ Completed (MongoDB)        |
+| Auth: register/login (JWT)   | ✔ Completed                  |
+| Sweets CRUD                  | ✔ Completed                  |
+| Search API                   | ✔ Completed                  |
+| Purchase & Restock           | ✔ Completed                  |
+| Admin-only routes            | ✔ Completed                  |
+| Frontend SPA                 | ✔ Completed                  |
+| User & Admin interfaces      | ✔ Completed                  |
+| TDD (Red/Green/Refactor)     | ✔ Fully followed             |
+| Commit transparency using AI | ✔ Done                       |
+| README with AI Usage         | ✔ Included                   |
+| Test Report                  | ✔ Included                   |
+| Screenshots                  | ✔ Included (add your images) |
 
 ---
 
-## 👑 Admin
-- Add/Edit/Delete sweets  
-- Stock control + low-stock warnings  
-- Manage orders + update status  
-- Inventory insights  
+# ⚙ **6. Setup Instructions**
 
----
+Clone the repository:
 
-## 🧠 Super Admin
-- Business analytics (orders, revenue, stock)  
-- Discount campaign builder  
-- Banner management (hero + sections)  
-- Customer role & account control  
-- Operation-level dashboards  
-
----
-
-# 🎨 UI Theme – The Mithai Gold Standard
-
-| Purpose | Color |
-|--------|--------|
-| Primary | `#B88646` (Royal Gold) |
-| Accent | `#C59B5F` |
-| Background | `#FFF4E6` |
-| Text | `#3E2F1D` |
-| Borders | `#E8DCC5` |
-
----
-
-# 🖼 Screenshots (Add Your Images)
-
-### 🏠 Home Page  
-![Home](assets/home.png)
-
-### 🍬 Dashboard  
-![Dashboard](assets/dashboard.png)
-
-### 🧁 Product Detail  
-![Product](assets/product.png)
-
-### 🛒 Cart  
-![Cart](assets/cart.png)
-
-### 📦 Orders Page  
-![Orders](assets/orders.png)
-
-### 👑 Super Admin Dashboard  
-![SuperAdmin](assets/superadmin.png)
-
----
-
-# 🗄 Database Schema Diagram
-
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd sweet-shop
 ```
 
-┌───────────────┐        ┌───────────────┐
-│    USERS      │1──────∞│    ORDERS     │
-└───────────────┘        └───────────────┘
-│                         │
-│                         │∞
-│                 ┌─────────────┐
-│                 │  ORDERITEMS │
-│                 └─────────────┘
-│
-│1
-┌───────────────┐
-│    CART       │
-└───────────────┘
-│∞
-┌───────────────┐
-│   CARTITEMS   │
-└───────────────┘
-
-┌───────────────┐
-│    SWEETS     │
-└───────────────┘
-
-┌───────────────┐
-│   DISCOUNTS   │
-└───────────────┘
-
-┌───────────────┐
-│    BANNERS    │
-└───────────────┘
-
-````
-
 ---
 
-# 📡 API Documentation
+# 🛠 **Backend Setup**
 
-Below is the **professional API table**.
-
-## 🔐 Authentication
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register new user |
-| POST | `/api/auth/login` | User login |
-| POST | `/api/auth/login-admin` | Admin login |
-
----
-
-## 🍬 Sweets API
-
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| GET | `/api/sweets` | Public | Get all sweets |
-| POST | `/api/sweets` | Admin | Create a sweet |
-| PUT | `/api/sweets/:id` | Admin | Edit sweet |
-| DELETE | `/api/sweets/:id` | Admin | Delete sweet |
-
----
-
-## 🛒 Cart API
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/cart` | Get user's cart |
-| POST | `/api/cart/add` | Add item |
-| PUT | `/api/cart/update` | Update quantity |
-| DELETE | `/api/cart/:sweetId` | Remove item |
-
----
-
-## 📦 Orders API
-
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| POST | `/api/orders` | User | Create order |
-| GET | `/api/orders` | User | Get user orders |
-| GET | `/api/admin/orders` | Admin | All orders |
-| PUT | `/api/orders/status/:id` | Admin | Update status |
-| PUT | `/api/orders/cancel/:id` | User/Admin | Cancel order |
-
----
-
-## 🎟 Discount API
-
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| POST | `/api/discounts/validate` | User | Apply coupon |
-| POST | `/api/discounts` | Admin | Create coupon |
-| GET | `/api/discounts` | Admin | List coupons |
-| DELETE | `/api/discounts/:id` | Admin | Delete coupon |
-
----
-
-## 📢 Banner API
-
-| Method | Endpoint | Access |
-|--------|----------|--------|
-| GET | `/api/banners` | Admin |
-| POST | `/api/banners` | Admin |
-| DELETE | `/api/banners/:id` | Admin |
-
----
-
-# ⚙️ Setup Instructions
-
-## Backend
 ```bash
 cd backend
 npm install
-npm run dev
-````
+```
 
-## Frontend
+Create `.env`:
+
+```
+MONGODB_URI=your-mongodb-url
+JWT_SECRET=your-secret-key
+PORT=3000
+```
+
+Start backend:
+
+```bash
+npm run dev
+```
+
+---
+
+# 🖥 **Frontend Setup**
 
 ```bash
 cd frontend
@@ -236,24 +216,203 @@ npm install
 npm run dev
 ```
 
----
+Frontend will run on:
 
-# 🔮 Future Enhancements
+👉 [http://localhost:5173](http://localhost:5173)
+Backend API at:
 
-* Online payment gateway
-* Automated SMS/Email notifications
-* Ingredient/recipe management
-* Sales graphs with charts
-* Multi-vendor support
-* Delivery partner dashboard
+👉 [http://localhost:3000/api](http://localhost:3000/api)
 
 ---
 
-# ❤️ Built With Love & Mithai
+# 🔗 **7. API Endpoints**
 
-If you like this project, please ⭐ star the repo :)
+### **Auth**
 
+| Method | Route              | Description   |
+| ------ | ------------------ | ------------- |
+| POST   | /api/auth/register | Register user |
+| POST   | /api/auth/login    | Login user    |
+
+### **Sweets**
+
+| Method | Route              | Description          |
+| ------ | ------------------ | -------------------- |
+| GET    | /api/sweets        | Get all sweets       |
+| GET    | /api/sweets/search | Search sweets        |
+| POST   | /api/sweets        | Add sweet (Admin)    |
+| PUT    | /api/sweets/:id    | Update sweet         |
+| DELETE | /api/sweets/:id    | Delete sweet (Admin) |
+
+### **Inventory**
+
+| Method | Route                    | Description           |
+| ------ | ------------------------ | --------------------- |
+| POST   | /api/sweets/:id/purchase | Purchase sweet        |
+| POST   | /api/sweets/:id/restock  | Restock sweet (Admin) |
+
+---
+
+# 🛒 **8. Frontend Features**
+
+### Users Can:
+
+* View sweets
+* Search & filter
+* Add to cart
+* Buy now
+* View orders
+
+### Admin Can:
+
+* Add sweets
+* Edit sweets
+* Delete sweets
+* Restock
+* View business analytics
+* Manage users
+* Manage banners
+* Manage promotions
+
+---
+
+# 🖼 **9. Screenshots**
+
+> **Add your images here** for evaluation
+> Example template:
+
+### 🏠 Dashboard
+
+![Dashboard](./screenshots/dashboard.png)
+
+### 🍬 Product Detail
+
+![Product Detail](./screenshots/product.png)
+
+### 🛒 Cart
+
+![Cart](./screenshots/cart.png)
+
+### 🛠 Admin Panel
+
+![Admin Panel](./screenshots/admin.png)
+
+---
+
+# 🤖 **10. My AI Usage (MANDATORY for Kata)**
+
+This section is REQUIRED by the assignment.
+
+### **AI Tools Used**
+
+* **ChatGPT (GPT-5.1)**
+* **GitHub Copilot**
+
+### **How AI Helped**
+
+* Generated boilerplate for:
+
+  * Controller structure
+  * API route layout
+  * React component drafts
+* Helped write unit tests (Jest + RTL)
+* Helped debug complex flows like:
+
+  * Stock update logic
+  * JWT middleware
+  * Cart calculations
+* Provided UI/UX ideas for the golden theme
+* Helped generate documentation (README, summaries)
+
+### **My Reflection**
+
+AI significantly improved speed and reduced boilerplate time.
+However:
+
+* Business logic was fully handwritten
+* Database design was done manually
+* All AI code was reviewed, modified, and tested
+* AI acted like a productivity assistant, not a code replacement
+* TDD discipline was always kept → tests first, code second
+
+### **Commit Transparency**
+
+All commits influenced by AI include:
+
+```
+Co-authored-by: AI Assistant <AI@users.noreply.github.com>
+```
+
+As required in the Kata.
+
+---
+
+# 📦 **11. Project Structure**
+
+```
+sweet-shop/
+│
+├── backend/
+│   ├── src/
+│   ├── tests/
+│   ├── package.json
+│   └── jest.config.js
+│
+├── frontend/
+│   ├── src/
+│   ├── tests/
+│   ├── package.json
+│   └── vitest.config.js
+│
+└── README.md
 ```
 
 ---
+
+# 🧪 **12. Test Report**
+
+Full test logs available in:
+
+📄 **TEST_REPORT.md**
+
+Includes:
+
+* Backend tests (Auth, Sweets, Cart, Orders)
+* Frontend component tests (Dashboard, Product, Cart)
+* Coverage summary
+
+---
+
+# 📚 **13. Troubleshooting**
+
+### MongoDB connection error
+
+→ Ensure DB is running
+→ Update `.env`
+
+### CORS issue
+
+→ Check frontend `.env`
+
+### Login fails
+
+→ Password must be ≥6 chars
+→ JWT secret must match
+
+### Tests failing
+
+→ Run MongoDB in test mode
+→ Clear Jest cache
+
+---
+
+# 📄 **14. License**
+
+MIT License © 2024
+The Mithai Box — Premium Sweet Shop System
+
+---
+
+# 🎉 **Thank You!**
+
 

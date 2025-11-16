@@ -1,218 +1,256 @@
 
-# 📚 **Documentation Guide — Sweet Shop Management System**
 
-This guide helps you quickly navigate all documentation files, understand their purpose, and find exactly what you need without confusion.
+# 📚 **Documentation Guide — The Mithai Box (Sweet Shop Management System)**
+
+### **Theme: Golden • Brown • Cream (Premium Mithai Aesthetic)**
+
+This guide helps you navigate the entire documentation suite with ease.
+Everything is structured, clean, and aligned with your luxury mithai branding.
 
 ---
 
 # 🌐 **Quick Navigation**
 
-### 🚀 Getting Started
+### 🚀 **Start Here**
 
-→ Open **README.md → Setup Instructions**
+👉 Open **README.md → Setup Instructions**
 
-### 🔌 API Reference
+### 🔌 **Backend API Reference**
 
-→ Open **README.md → API Endpoints**
+👉 **README.md → API Endpoints**
 
-### 🧪 Running the Test Suite
+### 🧪 **Testing (TDD)**
 
-→ Open **README.md → Running Tests**
-→ Compare outputs with **TEST_REPORT.md**
+👉 **README.md → Running Tests**
+👉 Detailed results in **TEST_REPORT.md**
 
-### 🤖 AI Contribution Overview
+### 🤖 **AI Contribution Summary**
 
-→ Open **README.md → My AI Usage**
+👉 **README.md → My AI Usage**
 
-### 📊 Full Test Report
+### 🎨 **UI/Theme & Design Guidelines**
 
-→ Open **TEST_REPORT.md**
+👉 **README.md → Design System (Golden Theme)**
 
-### 🎨 Design Guidelines
+### 🐞 **Fixing Errors**
 
-→ Open **README.md → Design System**
-
-### 🐞 Troubleshooting
-
-→ Open **README.md → Troubleshooting**
+👉 **README.md → Troubleshooting**
 
 ---
 
-# 📁 **File Overview**
+# 📁 **Official Documentation Files (6 Files)**
 
-## 📘 README.md
+## 📘 **1. README.md (Primary Documentation)**
 
 **Size:** ~15KB
-**Purpose:** The *master* documentation file.
+**Purpose:** The *central* and most important file.
 
-### 📌 Includes:
+### ✨ **Includes:**
 
-* Introduction & Features
-* Backend + Frontend Setup
-* Environment Configuration
-* Running Tests
-* Complete API Reference (15+ routes)
-* TDD Methodology
-* Database Model Docs
-* Error Handling Guide
-* Project Workflow
-* Design System (colors, typography, spacing)
-* **AI Usage Report**
-* Troubleshooting
-* Future Enhancements
+🍬 Project Overview
+👤 Auth & User Roles
+🛠 Backend + Frontend Setup
+🔑 Environment Variables
+🧪 TDD Process (Red → Green → Refactor)
+📡 Full API Reference (15+ routes)
+🗄 Database Structure
+🎨 UI/Theme Guidelines (Gold × Cream × Brown)
+🤖 **AI Usage (Required for Kata)**
+🛒 Core App Features (Cart, Orders, Inventory)
+🧰 Troubleshooting
+🚀 Deployment Guide
 
-**Use When:** You need **almost anything**. This is your starting point.
+**Use When:**
+✔ You need anything important
+✔ You're setting up the system
+✔ You want to understand the architecture
 
 ---
 
-## 🧪 TEST_REPORT.md
+## 🧪 **2. TEST_REPORT.md (Test Suite Summary)**
 
 **Size:** ~12KB
-**Purpose:** The complete test verification document.
+**Purpose:** Proof of TDD + test coverage.
 
-### 📌 Includes:
+### ✨ **Includes:**
 
-* Backend Tests (20+)
-* Frontend Tests (8+)
-* Authentication Test Results
-* Cart / Sweet / Order Tests
-* Test Coverage (90%+)
-* Performance Stats
-* Screenshots of Test Output
-* TDD Cycle Demonstration
-* Edge Case Validation
-* Recommendations
+🟤 Backend Tests (20+)
+🍯 Frontend Tests (8+)
+📊 90%+ Coverage Summary
+⚙ Stock, Orders, Cart scenarios
+🔐 Authentication validations
+⏱ Performance metrics
+🧵 TDD cycle verification
+🧪 Edge case coverage
 
-**Use When:** You want to verify that the project **meets test coverage & TDD requirements**.
-
----
-
-## 📝 CLEANUP_SUMMARY.md
-
-**Size:** ~3KB
-**Purpose:** Document cleanup operations.
-
-### 📌 Includes:
-
-* Removed 19 outdated files
-* Added 4 final documentation files
-* New documentation structure
-* Reasons for cleanup
-* Maintenance recommendations
-
-**Use When:** You need to understand **how documentation was reorganized**.
+**Use When:**
+✔ You’re validating TDD
+✔ Interviewers want test results
+✔ You need coverage metrics
 
 ---
 
-## 🧭 DOCUMENTATION_GUIDE.md
+## 📝 **3. CLEANUP_SUMMARY.md**
 
 **Size:** ~3KB
-**Purpose:** Simple navigation & structure guide.
+**Purpose:** Documentation audit record.
 
-### 📌 Includes:
+### ✨ **Includes:**
 
-* Quick link sections
-* File descriptions
-* Documentation size & statistics
-* Usage instructions
-* Update instructions
+🧹 19 files removed
+📄 6 official files added
+📘 New documentation structure
+📐 Cleanup reasoning
+📌 Maintenance rules
 
-**Use When:** You want a **fast overview** of the docs.
+**Use When:**
+✔ You need an audit trail
+✔ You want to verify organization quality
+
+---
+
+## 🧭 **4. DOCUMENTATION_GUIDE.md (This file)**
+
+**Size:** ~3KB
+**Purpose:** Your quick navigation map.
+
+### ✨ **Includes:**
+
+📌 What each file does
+📁 Where to find what
+📘 Ideal reading order
+📐 Documentation statistics
+🔧 Maintenance guidelines
+
+**Use When:**
+✔ You're onboarding a new contributor
+✔ You want to locate a specific document
+
+---
+
+## 🧾 **5. COMPLETION_SUMMARY.txt**
+
+**Size:** ~3KB
+**Purpose:** Formal completion certificate.
+
+### ✨ **Includes:**
+
+✔ Requirement checklist
+✔ Test suite confirmation
+✔ AI usage transparency
+✔ Deployment-ready verification
+
+**Use When:**
+✔ Submitting for evaluation
+✔ Providing a final status summary
+
+---
+
+## 📄 **6. START_HERE.md**
+
+**Size:** ~2KB
+**Purpose:** New contributor quick-start.
+
+### ✨ **Includes:**
+
+⚡ Quick setup
+🚦 Basic steps
+📁 Important files
+🎯 Learning path
+
+**Use When:**
+✔ Someone opens the repo for the first time
 
 ---
 
 # 📊 **Documentation Statistics**
 
-| Category                  | Value |
-| ------------------------- | ----- |
-| Total Documentation Files | 4     |
-| Total Documentation Size  | ~32KB |
-| API Endpoints Documented  | 15+   |
-| Test Cases Explained      | 28+   |
-| Code Samples              | 20+   |
-| README Sections           | 25+   |
-| Test Report Sections      | 15+   |
+| Category                 | Value     |
+| ------------------------ | --------- |
+| Total Files              | **6**     |
+| Deleted Files            | **19**    |
+| Total Size               | **~37KB** |
+| API Endpoints Documented | **15+**   |
+| Test Cases Documented    | **28+**   |
+| README Sections          | **25+**   |
+| Official Reports         | **4**     |
 
 ---
 
 # 🧩 **How to Use This Documentation**
 
-## 👨‍💻 **For New Developers**
+### 👨‍💻 **Developers**
 
-1. Read **README.md → Project Overview**
+1. Open **README.md → Project Overview**
 2. Follow **Setup Instructions**
-3. Run both frontend + backend
-4. Review **Application Workflow**
-5. Use **API Endpoints** as needed
+3. Run backend & frontend
+4. Explore API routes
+5. Build new features
 
 ---
 
-## 🧪 **For Testers**
+### 🧪 **Testers / QA Engineers**
 
-1. Open **TEST_REPORT.md → Executive Summary**
-2. Run:
+1. Run tests:
 
-   ```bash
-   npm test
-   ```
-3. Compare your results with the test report
-4. Check edge cases included in documentation
+```bash
+cd backend && npm test
+cd frontend && npm test
+```
+
+2. Compare with **TEST_REPORT.md**
 
 ---
 
-## 🔗 **For API Integrations**
+### 🔌 **Backend API Consumers**
 
 1. Open **README.md → API Endpoints**
-2. Use cURL or Postman examples
-3. Review success/error response formats
-4. Follow status code references
+2. Use cURL / Postman examples
+3. Review error/success responses
 
 ---
 
-## 🤖 **To Understand AI Usage**
+### 🤖 **AI Usage Auditors**
 
 1. Read **README.md → My AI Usage**
-2. Review how each feature used AI
-3. Look at the AI involvement percentage table
-4. Check AI-generated code patterns
+2. Review tool-by-tool breakdown
+3. Validate AI co-author policy compliance
 
 ---
 
-## 🐞 **For Debugging**
+### 🐞 **Debugging Issues**
 
-1. Open **README.md → Troubleshooting**
-2. Search for your issue
-3. Follow the recommended fix
-4. If needed, inspect related test cases
+1. Look at **Troubleshooting**
+2. Search by keyword
+3. Check related test cases
+4. Re-run the failing flow
 
 ---
 
 # 🛠️ **Documentation Maintenance Rules**
 
-### 📌 Update README.md When:
+### ✔ Update README.md if:
 
-* Adding new features
-* Updating environment variables
-* Changing API routes
-* Modifying UI/UX colors
+* New feature added
+* API endpoint changed
+* UI/Theme updated
+* New environment variables added
 
-### 📌 Update TEST_REPORT.md When:
+### ✔ Update TEST_REPORT.md if:
 
-* Adding new test files
-* Updating coverage
-* Fixing test behavior
-* Adding new components
+* New tests created
+* Coverage changes
+* Bugs fixed via tests
 
-### 📌 Do NOT create extra .md files
+### ❌ **Do NOT create random new .md files**
 
-→ Keep documentation centralized and compact.
-→ Update existing files instead of adding new ones.
+Keep documentation **clean, golden, and minimal**.
 
 ---
 
-# ⚡ Quick Commands
+# ⚡ Quick Commands Recap
 
-### Backend Setup
+### Backend
 
 ```bash
 cd backend
@@ -220,7 +258,7 @@ npm install
 npm run dev
 ```
 
-### Frontend Setup
+### Frontend
 
 ```bash
 cd frontend
@@ -228,44 +266,34 @@ npm install
 npm run dev
 ```
 
-### Run Backend Tests
+### Run Tests
 
 ```bash
-cd backend
-npm test
-```
-
-### Run Frontend Tests
-
-```bash
-cd frontend
 npm test
 ```
 
 ---
 
-# 📞 Support & Help
+# 📞 **Support**
 
-### First Steps
+If you're stuck:
 
 ✔ Check README.md
 ✔ Check TEST_REPORT.md
-✔ Check Troubleshooting Section
-
-### Still stuck?
-
-Look into:
-
-* API example usages
-* Test cases inside `/tests`
-* Component examples inside `/src`
+✔ Check Troubleshooting
+✔ Review similar test cases
 
 ---
 
 # 📅 Last Updated: 2025
 
-# 📌 Documentation Version: 1.0
+# 🎨 Theme: Golden • Brown • Cream
 
-# ✅ Status: Complete, Organized, Production-Ready
+# 🪔 Brand: **The Mithai Box**
 
+# 📄 Documentation Version: 1.0
+
+# 🏁 Status: **Complete • Organized • Production-Ready**
+
+---
 
