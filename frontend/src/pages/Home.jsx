@@ -1,12 +1,37 @@
 import { Link } from "react-router-dom";
+import img1 from "../assets/image1.png";
+import img2 from "../assets/image2.png";
+import img3 from "../assets/image3.png";
+import img4 from "../assets/image.png";
 
 const Home = () => {
   const categories = [
-    { name: "Royal Kaju Katli", color: "#FFF4D6" },
-    { name: "Kesariya Peda", color: "#FDEFEF" },
-    { name: "Shahi Gulab Roll", color: "#FFF7E8" },
-    { name: "Malai Barfi", color: "#F4ECFF" },
-    { name: "Dry Fruit Laddu", color: "#FFF4D6" },
+    {
+      name: "Royal Kaju Katli",
+      color: "#FFF4D6",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2OmQk2juthOTIdBR7781rYP8FmNt_q9UNjw&s",
+    },
+    {
+      name: "Kesariya Peda",
+      color: "#FFF4D6",
+      img: img1,
+
+    },
+    {
+      name: "Shahi Gulab Roll",
+      color: "#FFF4D6",
+      img: img2,
+    },
+    {
+      name: "Malai Barfi",
+      color: "#FFF4D6",
+      img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80",
+    },
+    {
+      name: "Dry Fruit Laddu",
+      color: "#FFF4D6",
+      img: img3,
+    },
   ];
 
   return (
@@ -154,16 +179,18 @@ const Home = () => {
                     "0 4px 16px rgba(0,0,0,0.1)";
                 }}
               >
-                <div
+                <img
+                  src={cat.img}
+                  alt={cat.name}
                   style={{
-                    fontSize: "46px",
-                    color: "#B88646",
-                    marginBottom: "12px",
-                    fontWeight: 300,
+                    width: "90px",
+                    height: "90px",
+                    objectFit: "cover",
+                    borderRadius: "14px",
+                    marginBottom: "14px",
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
                   }}
-                >
-                  ❁
-                </div>
+                />
 
                 <h3
                   style={{
@@ -201,12 +228,18 @@ const Home = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            fontSize: "48px",
-            color: "#B88646",
-            fontWeight: 300,
           }}
         >
-          ❁
+          <img
+            src={img4}
+            alt="About Sweet"
+            style={{
+              width: "80%",
+              height: "80%",
+              borderRadius: "18px",
+              objectFit: "cover",
+            }}
+          />
         </div>
 
         <div>
@@ -301,4 +334,3 @@ const Home = () => {
 };
 
 export default Home;
-

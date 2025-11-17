@@ -57,6 +57,7 @@ describe('Order Cancellation Stock Restoration - TDD', () => {
       price: 100,
       quantity: 10,
     });
+    console.log("sweet", sweet)
     sweetId = sweet._id;
 
     // Add to cart and create order
