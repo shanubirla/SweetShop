@@ -12,7 +12,7 @@ This project is a complete **Sweet Shop Management System** built as a **Test-Dr
 
 # 📸 **Live Demo **
 
-👉 **[https://sweet-shop-hxeqbr7s0-shanu-birlas-projects.vercel.app/](https://sweet-shop-hxeqbr7s0-shanu-birlas-projects.vercel.app/)**
+👉 **[https://sweet-shop-ruby.vercel.app/](https://sweet-shop-ruby.vercel.app/)**
 
 
 ---
